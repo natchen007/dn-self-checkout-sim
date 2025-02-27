@@ -1,1 +1,89 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Self Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: black;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            color: black;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .start-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-weight: bold;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        .start-btn:hover {
+            background: #0056b3;
+        }
+        .help-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: transparent;
+            color: black;
+            border: 2px solid black;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .help-btn:hover {
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <button class="help-btn" onclick="showHelp()">Help</button>
+    <div class="container">
+        <h1>Welcome to Self Checkout</h1>
+        <p>Press the button below to begin</p>
+    </div>
+    <button class="start-btn" onclick="startCheckout()">Start</button>
+    <script>
+        function startCheckout() {
+            window.location.href = 'checkout.html'; // Redirect to main checkout page
+        }
+        function showHelp() {
+            alert('Please ask a staff member for assistance.');
+        }
+    </script>
+</body>
+</html>
