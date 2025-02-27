@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Self Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .ticket {
+            width: 30%;
+            background: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hostess-menu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .hostess-menu button {
+            margin: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        #scanInput {
+            position: absolute;
+            top: -1000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h2>Receipt</h2>
+        <ul id="items-list"></ul>
+        <button id="pay-btn" class="hidden" onclick="processPayment()">Pay</button>
+    </div>
+    <div class="main">
+        <input type="text" id="scanInput" autofocus oninput="scanBarcode(event)">
+    </div>
+    <div id="hostessMenu" class="hostess-menu">
+        <h2>Hostess Menu</h2>
+        <button onclick="cancelTransaction()">Cancel Transaction</button>
+        <button onclick="modifyItems()">Modify Items</button>
+        <button onclick="viewLogs()">View Logs</button>
+        <button onclick="closeHostessMenu()">Close</button>
+    </div>
+    <script>
+        document.addEventListener("keydown", function(event) {
+            document.getElementById("scanInput").focus();
+        });
+
+        function scanBarcode(event) {
+            let barcode = event.target.value;
+            event.target.value = "";
+            if (barcode === "000STAFF000") {
+                document.getElementById("hostessMenu").style.display = "block";
+            } else if (barcode === "UNKNOWN") {
+                alert("Please wait for assistance");
+                document.getElementById("hostessMenu").style.display = "block";
+            } else {
+                addItem(barcode);
+            }
+        }
+
+        function addItem(barcode) {
+            let itemList = document.getElementById("items-list");
+            let newItem = document.createElement("li");
+            newItem.textContent = "Item: " + barcode;
+            itemList.appendChild(newItem);
+            document.getElementById("pay-btn").classList.remove("hidden");
+        }
+
+        function cancelTransaction() {
+            document.getElementById("items-list").innerHTML = "";
+            document.getElementById("pay-btn").classList.add("hidden");
+            closeHostessMenu();
+        }
+
+        function closeHostessMenu() {
+            document.getElementById("hostessMenu").style.display = "none";
+        }
+    </script>
+</body>
+</html>
