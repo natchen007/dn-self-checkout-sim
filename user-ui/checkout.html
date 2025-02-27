@@ -71,12 +71,24 @@
             document.getElementById("scanInput").focus();
         });
 
+        let barcodeTimeout;
         function scanBarcode(event) {
+            clearTimeout(barcodeTimeout);
             let barcode = event.target.value;
-            event.target.value = "";
-            if (barcode === "000STAFF000") {
-                document.getElementById("hostessMenu").style.display = "block";
-            } else if (barcode === "UNKNOWN") {
+            barcodeTimeout = setTimeout(() => {
+                event.target.value = "";
+                if (barcode === "000STAFF000") {
+                    document.getElementById("hostessMenu").style.display = "block";
+                } else {
+                    checkBarcode(barcode);
+                }
+            }, 500); // 500ms delay
+        }
+
+        function checkBarcode(barcode) {
+            // Simulate a database check
+            let knownBarcodes = ["123456789", "987654321", "111222333"];
+            if (!knownBarcodes.includes(barcode)) {
                 alert("Please wait for assistance");
                 document.getElementById("hostessMenu").style.display = "block";
             } else {
